@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
+import { FlatList, View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
 import AsyncStorage from '@react-native-async-storage/async-storage';
 
 interface Item {
@@ -57,7 +57,7 @@ const ItemRow = ({ item, onDelete }: { item: Item; onDelete: () => void }) => {
         <Text style={styles.column}>{quantity}</Text>
         <Text style={styles.column}>{item.type}</Text>
         <View style={styles.countColumn}>
-        <TouchableOpacity onPress={handleDecrement}>
+          <TouchableOpacity onPress={handleDecrement}>
             <Text style={styles.countButton}>-</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleIncrement}>
@@ -113,17 +113,19 @@ const TabOneScreen = () => {
     setData(newData);
   };
 
+  const renderItem = ({ item, index }: { item: Item; index: number }) => (
+    <ItemRow item={item} onDelete={() => handleDeleteItem(index)} />
+  );
+
   return (
-    <ScrollView contentContainerStyle={styles.container}>
+    <View style={styles.container}>
       <ColumnHeaders />
-      {data.map((item, index) => (
-        <ItemRow key={index} item={item} onDelete={() => handleDeleteItem(index)} />
-      ))}
-      <View style={styles.addButtonContainer}>
-        <TouchableOpacity onPress={handleAddItem}>
-          <Text style={styles.addButton}>+</Text>
-        </TouchableOpacity>
-      </View>
+      <FlatList
+        data={data}
+        keyExtractor={(item, index) => `${index}`}
+        renderItem={renderItem}
+        style={styles.flatList}
+      />
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
@@ -145,10 +147,14 @@ const TabOneScreen = () => {
           onChangeText={(text) => setNewItem({ ...newItem, type: text })}
         />
       </View>
-    </ScrollView>
+      <View style={styles.addButtonContainer}>
+        <TouchableOpacity onPress={handleAddItem}>
+          <Text style={styles.addButton}>+</Text>
+        </TouchableOpacity>
+      </View>
+    </View>
   );
 };
-
 
 const styles = StyleSheet.create({
   container: {
@@ -182,6 +188,9 @@ const styles = StyleSheet.create({
     color: '#fff',
     borderRadius: 4,
     marginHorizontal: 4,
+  },
+  flatList: {
+    marginBottom: 16,
   },
   addButtonContainer: {
     alignItems: 'flex-end',

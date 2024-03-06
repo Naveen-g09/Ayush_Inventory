@@ -1,6 +1,6 @@
 import AsyncStorage from '@react-native-async-storage/async-storage';
 import React, { useState, useEffect } from 'react';
-import { View, Text, StyleSheet, TouchableOpacity, TextInput, ScrollView, Alert, TouchableWithoutFeedback } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity, TextInput, Alert, FlatList } from 'react-native';
 import call from 'react-native-phone-call';
 
 interface Contact {
@@ -22,26 +22,26 @@ const CallScreen = () => {
           setContacts(JSON.parse(storedContacts));
         } else {
           setContacts([
-      { name: 'Mankal', phoneNumber: '7021865475' },
-      { name: 'Dr Mayank (Vaidyratnam)', phoneNumber: '8108577645' },
-      { name: 'Rahul (Vaidyratnam)', phoneNumber: '9619691948' },
-      { name: 'Vikas (Diabamass)', phoneNumber: '9509141510' },
-      { name: 'Ashok (Upadhyay)', phoneNumber: '9892201884' },
-      { name: 'Adinath Patil (Panchakarma)', phoneNumber: '7977082126' },
-      { name: 'Sattapa Patil (Pathalogist)', phoneNumber: '9967064548' },
-      { name: 'Dr Mahesh Pandey', phoneNumber: '9820006082' },
-      { name: 'Arun Pandey', phoneNumber: '9820488824' },
-      { name: 'Kamlakant', phoneNumber: '9819487935' },
-      { name: 'Naveen', phoneNumber: '7208208480' },
-    ]);
-  }
-} catch (error) {
-  console.error('Error loading contacts:', error);
-}
-};
+            { name: 'Mankal', phoneNumber: '7021865475' },
+            { name: 'Dr Mayank (Vaidyratnam)', phoneNumber: '8108577645' },
+            { name: 'Rahul (Vaidyratnam)', phoneNumber: '9619691948' },
+            { name: 'Vikas (Diabamass)', phoneNumber: '9509141510' },
+            { name: 'Ashok (Upadhyay)', phoneNumber: '9892201884' },
+            { name: 'Adinath Patil (Panchakarma)', phoneNumber: '7977082126' },
+            { name: 'Sattapa Patil (Pathalogist)', phoneNumber: '9967064548' },
+            { name: 'Dr Mahesh Pandey', phoneNumber: '9820006082' },
+            { name: 'Arun Pandey', phoneNumber: '9820488824' },
+            { name: 'Kamlakant', phoneNumber: '9819487935' },
+            { name: 'Naveen', phoneNumber: '7208208480' },
+          ]);
+        }
+      } catch (error) {
+        console.error('Error loading contacts:', error);
+      }
+    };
 
-fetchData();
-}, []);
+    fetchData();
+  }, []);
 
   const handleCallPress = (phoneNumber: string) => {
     const args = {
@@ -94,25 +94,27 @@ fetchData();
       .catch((error) => console.error('Error deleting contact:', error));
   };
 
+  const renderItem = ({ item, index }: { item: Contact; index: number }) => (
+    <TouchableOpacity onLongPress={() => handleLongPress(index)}>
+      <View style={styles.contactContainer}>
+        <Text>{item.name}</Text>
+        <Text>{item.phoneNumber}</Text>
+        <TouchableOpacity onPress={() => handleCallPress(item.phoneNumber)}>
+          <Text style={styles.callButton}>Call</Text>
+        </TouchableOpacity>
+      </View>
+    </TouchableOpacity>
+  );
+
   return (
     <View style={styles.container}>
       <Text style={styles.title}>Call Screen</Text>
-      <ScrollView style={styles.scrollView}>
-        {contacts.map((contact, index) => (
-          <TouchableWithoutFeedback
-            key={index}
-            onLongPress={() => handleLongPress(index)}
-          >
-            <View style={styles.contactContainer}>
-              <Text>{contact.name}</Text>
-              <Text>{contact.phoneNumber}</Text>
-              <TouchableOpacity onPress={() => handleCallPress(contact.phoneNumber)}>
-                <Text style={styles.callButton}>Call</Text>
-              </TouchableOpacity>
-            </View>
-          </TouchableWithoutFeedback>
-        ))}
-      </ScrollView>
+      <FlatList
+        data={contacts}
+        keyExtractor={(item, index) => `${index}`}
+        renderItem={renderItem}
+        style={styles.flatList}
+      />
       <View style={styles.addContactContainer}>
         <TextInput
           style={styles.input}
@@ -147,19 +149,25 @@ const styles = StyleSheet.create({
     fontWeight: 'bold',
     marginBottom: 16,
   },
-  scrollView: {
+  flatList: {
     width: '100%',
     marginBottom: 16,
   },
   contactContainer: {
     marginBottom: 20,
-    alignItems: 'center',
     flexDirection: 'row',
     justifyContent: 'space-between',
     padding: 10,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 8,
+    alignItems: 'center',
+  },
+  name: {
+    flex: 2,
+  },
+  phoneNumber: {
+    flex: 2,
   },
   callButton: {
     color: 'blue',
@@ -171,7 +179,7 @@ const styles = StyleSheet.create({
     alignItems: 'center',
   },
   input: {
-    flex: 1,
+    flex: 2,
     borderWidth: 1,
     borderColor: '#ccc',
     borderRadius: 4,
@@ -179,11 +187,13 @@ const styles = StyleSheet.create({
     marginRight: 8,
   },
   addButton: {
+    flex: 1,
     fontSize: 16,
     backgroundColor: '#007bff',
     color: '#fff',
     borderRadius: 4,
     padding: 8,
+    textAlign: 'center',
   },
 });
 
