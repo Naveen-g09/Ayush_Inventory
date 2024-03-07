@@ -25,14 +25,6 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-      {/* <Tabs.Screen
-        name="index"
-        options={{
-          title: 'Inventory',
-          tabBarIcon: ({ color }) => <TabBarIcon name="plus-square" color={color} />,
-          headerShown: false,
-        }}
-      /> */}
 
 <Tabs.Screen
         name="index"
