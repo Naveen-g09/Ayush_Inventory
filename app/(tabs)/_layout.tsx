@@ -25,14 +25,33 @@ export default function TabLayout() {
         // to prevent a hydration error in React Navigation v6.
         headerShown: useClientOnlyValue(false, true),
       }}>
-      <Tabs.Screen
+
+<Tabs.Screen
         name="index"
         options={{
           title: 'Inventory',
-          tabBarIcon: ({ color }) => <TabBarIcon name="plus-square" color={color} />,
-          headerShown: false,
+          tabBarIcon: (props) => <TabBarIcon {...props} name="plus-square" />,
+          headerTitleAlign: "center",
+          headerStyle: {
+            backgroundColor: "lavender",
+          },
+
+          headerRight: () => (
+            <Link href="/modal" asChild>
+              <Pressable>
+                {({ pressed }) => (
+                  <FontAwesome
+                    name="bell-o"
+                    size={25}
+                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+                  />
+                )}
+              </Pressable>
+            </Link>
+          ),
         }}
       />
+    
       <Tabs.Screen
         name="two"
         options={{
