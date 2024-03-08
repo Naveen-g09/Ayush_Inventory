@@ -1,1 +1,1 @@
-declare module 'react-native-phone-call';
+declare module "react-native-phone-call";

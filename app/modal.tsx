@@ -1,12 +1,12 @@
-import { View, Text } from 'react-native'
-import React from 'react'
+import React from "react";
+import { View, Text } from "react-native";
 
 const modal = () => {
   return (
     <View>
       <Text>modal</Text>
     </View>
-  )
-}
+  );
+};
 
-export default modal
+export default modal;

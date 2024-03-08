@@ -1,5 +1,5 @@
-import AsyncStorage from '@react-native-async-storage/async-storage';
-import React, { useState, useEffect } from 'react';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from "react";
 import {
   View,
   Text,
@@ -8,21 +8,22 @@ import {
   TextInput,
   FlatList,
   Alert,
-} from 'react-native';
-import call from 'react-native-phone-call';
-
-const powderBlue = '#B0E0E6';
+} from "react-native";
+import call from "react-native-phone-call";
 
 interface Contact {
   name: string;
   phoneNumber: string;
 }
 
-const STORAGE_KEY = '@MyApp:contacts';
+const STORAGE_KEY = "@MyApp:contacts";
 
 const CallScreen = () => {
   const [contacts, setContacts] = useState<Contact[]>([]);
-  const [newContact, setNewContact] = useState<Contact>({ name: '', phoneNumber: '' });
+  const [newContact, setNewContact] = useState<Contact>({
+    name: "",
+    phoneNumber: "",
+  });
 
   useEffect(() => {
     const fetchData = async () => {
@@ -32,21 +33,21 @@ const CallScreen = () => {
           setContacts(JSON.parse(storedContacts));
         } else {
           setContacts([
-            { name: 'Mankal', phoneNumber: '7021865475' },
-            { name: 'Dr Mayank (Vaidyratnam)', phoneNumber: '8108577645' },
-            { name: 'Rahul (Vaidyratnam)', phoneNumber: '9619691948' },
-            { name: 'Vikas (Diabamass)', phoneNumber: '9509141510' },
-            { name: 'Ashok (Upadhyay)', phoneNumber: '9892201884' },
-            { name: 'Adinath Patil (Panchakarma)', phoneNumber: '7977082126' },
-            { name: 'Sattapa Patil (Pathalogist)', phoneNumber: '9967064548' },
-            { name: 'Dr Mahesh Pandey', phoneNumber: '9820006082' },
-            { name: 'Arun Pandey', phoneNumber: '9820488824' },
-            { name: 'Kamlakant', phoneNumber: '9819487935' },
-            { name: 'Naveen', phoneNumber: '7208208480' },
+            { name: "Mankal", phoneNumber: "7021865475" },
+            { name: "Dr Mayank (Vaidyratnam)", phoneNumber: "8108577645" },
+            { name: "Rahul (Vaidyratnam)", phoneNumber: "9619691948" },
+            { name: "Vikas (Diabamass)", phoneNumber: "9509141510" },
+            { name: "Ashok (Upadhyay)", phoneNumber: "9892201884" },
+            { name: "Adinath Patil (Panchakarma)", phoneNumber: "7977082126" },
+            { name: "Sattapa Patil (Pathalogist)", phoneNumber: "9967064548" },
+            { name: "Dr Mahesh Pandey", phoneNumber: "9820006082" },
+            { name: "Arun Pandey", phoneNumber: "9820488824" },
+            { name: "Kamlakant", phoneNumber: "9819487935" },
+            { name: "Naveen", phoneNumber: "7208208480" },
           ]);
         }
       } catch (error) {
-        console.error('Error loading contacts:', error);
+        console.error("Error loading contacts:", error);
       }
     };
 
@@ -66,31 +67,31 @@ const CallScreen = () => {
     if (newContact.name && newContact.phoneNumber) {
       const updatedContacts = [...contacts, newContact];
       setContacts(updatedContacts);
-      setNewContact({ name: '', phoneNumber: '' });
+      setNewContact({ name: "", phoneNumber: "" });
 
       AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedContacts))
-        .then(() => console.log('Contact added successfully'))
-        .catch((error) => console.error('Error saving contact:', error));
+        .then(() => console.log("Contact added successfully"))
+        .catch((error) => console.error("Error saving contact:", error));
     } else {
-      Alert.alert('Error', 'Please enter both name and phone number.');
+      Alert.alert("Error", "Please enter both name and phone number.");
     }
   };
 
   const handleLongPress = (index: number) => {
     Alert.alert(
-      'Delete Contact',
-      'Are you sure you want to delete this contact?',
+      "Delete Contact",
+      "Are you sure you want to delete this contact?",
       [
         {
-          text: 'Cancel',
-          style: 'cancel',
+          text: "Cancel",
+          style: "cancel",
         },
         {
-          text: 'Delete',
+          text: "Delete",
           onPress: () => handleDeleteContact(index),
         },
       ],
-      { cancelable: true }
+      { cancelable: true },
     );
   };
 
@@ -100,8 +101,8 @@ const CallScreen = () => {
     setContacts(updatedContacts);
 
     AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(updatedContacts))
-      .then(() => console.log('Contact deleted successfully'))
-      .catch((error) => console.error('Error deleting contact:', error));
+      .then(() => console.log("Contact deleted successfully"))
+      .catch((error) => console.error("Error deleting contact:", error));
   };
 
   const renderItem = ({ item, index }: { item: Contact; index: number }) => (
@@ -140,7 +141,9 @@ const CallScreen = () => {
           placeholder="Phone Number"
           keyboardType="numeric"
           value={newContact.phoneNumber}
-          onChangeText={(text) => setNewContact({ ...newContact, phoneNumber: text })}
+          onChangeText={(text) =>
+            setNewContact({ ...newContact, phoneNumber: text })
+          }
         />
         <TouchableOpacity onPress={handleAddContact}>
           <Text style={styles.addButton}>Add Contact</Text>
@@ -153,59 +156,59 @@ const CallScreen = () => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    alignItems: 'center',
-    justifyContent: 'center',
+    alignItems: "center",
+    justifyContent: "center",
     padding: 16,
-    backgroundColor:'#FFF',
+    backgroundColor: "#FFF",
   },
   title: {
     fontSize: 24,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 16,
-    color: 'black',
+    color: "black",
   },
   flatList: {
-    width: '100%',
+    width: "100%",
   },
   contactContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
     padding: 10,
   },
   contactName: {
-    fontWeight: 'bold',
+    fontWeight: "bold",
     fontSize: 16,
   },
   contactNumber: {
-    color: 'gray',
+    color: "gray",
     fontSize: 14,
   },
   callButton: {
-    color: 'blue',
-    fontWeight: 'bold',
+    color: "blue",
+    fontWeight: "bold",
   },
   addContactContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: "row",
+    justifyContent: "space-between",
+    alignItems: "center",
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: 'gray',
+    borderColor: "gray",
     borderRadius: 4,
     paddingHorizontal: 8,
     marginRight: 8,
-    backgroundColor: 'white',
+    backgroundColor: "white",
   },
   addButton: {
     fontSize: 16,
-    backgroundColor: 'blue',
-    color: 'white',
+    backgroundColor: "blue",
+    color: "white",
     borderRadius: 4,
     padding: 8,
-    fontWeight: 'bold',
+    fontWeight: "bold",
   },
 });
 

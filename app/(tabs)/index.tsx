@@ -1,6 +1,14 @@
-import React, { useState, useEffect } from 'react';
-import { ScrollView, View, Text, StyleSheet, TouchableOpacity, TextInput, Alert } from 'react-native';
-import AsyncStorage from '@react-native-async-storage/async-storage';
+import AsyncStorage from "@react-native-async-storage/async-storage";
+import React, { useState, useEffect } from "react";
+import {
+  ScrollView,
+  View,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  TextInput,
+  Alert,
+} from "react-native";
 
 interface Item {
   name: string;
@@ -9,9 +17,9 @@ interface Item {
   count: number;
 }
 
-const initialNewItem: Item = { name: '', quantity: 0, type: '', count: 0 };
+const initialNewItem: Item = { name: "", quantity: 0, type: "", count: 0 };
 
-const STORAGE_KEY = '@MyApp:items';
+const STORAGE_KEY = "@MyApp:items";
 
 const ColumnHeaders = () => (
   <View style={styles.row}>
@@ -37,16 +45,16 @@ const ItemRow = ({ item, onDelete }: { item: Item; onDelete: () => void }) => {
 
   const handleLongPress = () => {
     Alert.alert(
-      'Delete Item',
+      "Delete Item",
       `Are you sure you want to delete ${item.name}?`,
       [
         {
-          text: 'Cancel',
-          style: 'cancel',
+          text: "Cancel",
+          style: "cancel",
         },
-        { text: 'OK', onPress: onDelete },
+        { text: "OK", onPress: onDelete },
       ],
-      { cancelable: false }
+      { cancelable: false },
     );
   };
 
@@ -57,7 +65,7 @@ const ItemRow = ({ item, onDelete }: { item: Item; onDelete: () => void }) => {
         <Text style={styles.column}>{quantity}</Text>
         <Text style={styles.column}>{item.type}</Text>
         <View style={styles.countColumn}>
-        <TouchableOpacity onPress={handleDecrement}>
+          <TouchableOpacity onPress={handleDecrement}>
             <Text style={styles.countButton}>-</Text>
           </TouchableOpacity>
           <TouchableOpacity onPress={handleIncrement}>
@@ -82,7 +90,7 @@ const TabOneScreen = () => {
           setData(JSON.parse(storedData));
         }
       } catch (error) {
-        console.error('Error loading data:', error);
+        console.error("Error loading data:", error);
       }
     };
 
@@ -95,7 +103,7 @@ const TabOneScreen = () => {
       try {
         await AsyncStorage.setItem(STORAGE_KEY, JSON.stringify(data));
       } catch (error) {
-        console.error('Error saving data:', error);
+        console.error("Error saving data:", error);
       }
     };
 
@@ -117,7 +125,11 @@ const TabOneScreen = () => {
     <ScrollView contentContainerStyle={styles.container}>
       <ColumnHeaders />
       {data.map((item, index) => (
-        <ItemRow key={index} item={item} onDelete={() => handleDeleteItem(index)} />
+        <ItemRow
+          key={index}
+          item={item}
+          onDelete={() => handleDeleteItem(index)}
+        />
       ))}
       <View style={styles.addButtonContainer}>
         <TouchableOpacity onPress={handleAddItem}>
@@ -136,7 +148,9 @@ const TabOneScreen = () => {
           placeholder="Quantity"
           keyboardType="numeric"
           value={newItem.quantity.toString()}
-          onChangeText={(text) => setNewItem({ ...newItem, quantity: parseInt(text, 10) || 0 })}
+          onChangeText={(text) =>
+            setNewItem({ ...newItem, quantity: parseInt(text, 10) || 0 })
+          }
         />
         <TextInput
           style={styles.input}
@@ -149,60 +163,59 @@ const TabOneScreen = () => {
   );
 };
 
-
 const styles = StyleSheet.create({
   container: {
     padding: 16,
   },
   row: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     borderBottomWidth: 1,
-    borderBottomColor: '#ccc',
+    borderBottomColor: "#ccc",
     paddingVertical: 8,
   },
   column: {
     flex: 1,
-    textAlign: 'center',
+    textAlign: "center",
   },
   columnHeader: {
     flex: 1,
-    textAlign: 'center',
-    fontWeight: 'bold',
+    textAlign: "center",
+    fontWeight: "bold",
   },
   countColumn: {
-    flexDirection: 'row',
-    alignItems: 'center',
+    flexDirection: "row",
+    alignItems: "center",
   },
   countButton: {
     fontSize: 18,
     paddingHorizontal: 8,
     paddingVertical: 4,
-    backgroundColor: '#007bff',
-    color: '#fff',
+    backgroundColor: "#007bff",
+    color: "#fff",
     borderRadius: 4,
     marginHorizontal: 4,
   },
   addButtonContainer: {
-    alignItems: 'flex-end',
+    alignItems: "flex-end",
     marginVertical: 16,
   },
   addButton: {
     fontSize: 24,
-    backgroundColor: '#007bff',
-    color: '#fff',
+    backgroundColor: "#007bff",
+    color: "#fff",
     borderRadius: 50,
     padding: 10,
   },
   inputContainer: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
+    flexDirection: "row",
+    justifyContent: "space-between",
     marginBottom: 16,
   },
   input: {
     flex: 1,
     borderWidth: 1,
-    borderColor: '#ccc',
+    borderColor: "#ccc",
     borderRadius: 4,
     paddingHorizontal: 8,
     marginRight: 8,
