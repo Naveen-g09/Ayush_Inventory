@@ -1,5 +1,6 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { Link, Tabs } from "expo-router";
+import { Drawer } from 'expo-router/drawer';
 import React from "react";
 import { Pressable } from "react-native";
 
@@ -15,47 +16,25 @@ function TabBarIcon(props: {
 
 export default function TabLayout() {
   return (
-    <Tabs
-      screenOptions={{
-        // Disable the static render of the header on web
-        // to prevent a hydration error in React Navigation v6.
-        headerShown: useClientOnlyValue(false, true),
-      }}
-    >
+    <>
+    
+    <Tabs>
       <Tabs.Screen
         name="index"
         options={{
-          title: "Inventory",
           tabBarIcon: (props) => <TabBarIcon {...props} name="plus-square" />,
-          headerTitleAlign: "center",
-          headerStyle: {
-            backgroundColor: "lavender",
-          },
-
-          headerRight: () => (
-            <Link href="/modal" asChild>
-              <Pressable>
-                {({ pressed }) => (
-                  <FontAwesome
-                    name="bell-o"
-                    size={25}
-                    style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
-                  />
-                )}
-              </Pressable>
-            </Link>
-          ),
+          headerShown: false,
         }}
       />
 
       <Tabs.Screen
         name="two"
         options={{
-          title: "contact",
+          title: "Call Screen",
           tabBarIcon: ({ color }) => <TabBarIcon name="phone" color={color} />,
-          headerShown: false,
         }}
       />
     </Tabs>
+    </>
   );
 }

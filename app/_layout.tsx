@@ -1,11 +1,13 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
 import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Stack } from "expo-router";
+import { Link, Stack, Tabs } from "expo-router";
 import * as SplashScreen from "expo-splash-screen";
-import { useEffect } from "react";
-
+import React, { useEffect } from "react";
+import { GestureHandlerRootView } from 'react-native-gesture-handler';
+import { Drawer } from 'expo-router/drawer';
 import { useColorScheme } from "@/components/useColorScheme";
+import { Pressable } from "react-native";
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -48,11 +50,55 @@ function RootLayoutNav() {
   const colorScheme = useColorScheme();
 
   return (
+    
     <ThemeProvider
       value={colorScheme === "light" ? DefaultTheme : DefaultTheme}
     >
-      <Stack>
-        <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+<GestureHandlerRootView style={{ flex: 1 }}>
+      <Drawer
+     screenOptions={{
+      // Disable the static render of the header on web
+      // to prevent a hydration error in React Navigation v6.
+      // headerShown: useClientOnlyValue(false, true),
+      headerStyle: {
+        backgroundColor: "lavender",
+        elevation: 4,
+      },
+      headerTintColor: "black",
+      headerTitleStyle: {
+        fontWeight: "bold",
+
+      },
+      headerTitleAlign: "center",
+      headerPressColor: "rgba(0, 0, 0, .32)",
+      headerRight: () => (
+        <Link href="/modal" asChild>
+          <Pressable>
+            {({ pressed }) => (
+              <FontAwesome
+                name="bell-o"
+                size={25}
+                style={{ marginRight: 15, opacity: pressed ? 0.5 : 1 }}
+              />
+            )}
+          </Pressable>
+        </Link>
+      ),
+    }}
+      >
+
+<Drawer.Screen
+          name="lessStock" // This is the name of the page and must match the url from root
+          options={{
+            drawerLabel: 'lessStock',
+            title: 'overview',
+          }}
+        />
+
+       
+<Stack>
+        <Stack.Screen name="(tabs)" options={{
+          headerShown: false }} />
         <Stack.Screen
           name="modal"
           options={{
@@ -61,6 +107,10 @@ function RootLayoutNav() {
           }}
         />
       </Stack>
+
+
+      </Drawer>
+    </GestureHandlerRootView>
     </ThemeProvider>
   );
 }
