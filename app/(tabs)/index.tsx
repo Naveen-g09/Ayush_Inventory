@@ -9,6 +9,7 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import * as Notifications from "expo-notifications";
 
 interface Item {
   name: string;
@@ -20,6 +21,15 @@ interface Item {
 const initialNewItem: Item = { name: "", quantity: 0, type: "", count: 0 };
 
 const STORAGE_KEY = "@MyApp:items";
+
+Notifications.setNotificationHandler({
+  handleNotification: async () => ({
+    shouldShowAlert: true,
+    shouldPlaySound: true,
+    shouldSetBadge: true,
+  }),
+});
+
 
 const ColumnHeaders = () => (
   <View style={styles.row}>
