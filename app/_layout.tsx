@@ -16,7 +16,7 @@ export {
 
 export const unstable_settings = {
   // Ensure that reloading on `/modal` keeps a back button present.
-  initialRouteName: "(tabs)",
+  initialRouteName: "index",
 };
 
 // Prevent the splash screen from auto-hiding before asset loading is complete.
@@ -60,6 +60,7 @@ function RootLayoutNav() {
       // Disable the static render of the header on web
       // to prevent a hydration error in React Navigation v6.
       // headerShown: useClientOnlyValue(false, true),
+      // headerTitle: "Ayush Inventory",
       headerStyle: {
         backgroundColor: "lavender",
         elevation: 4,
@@ -72,7 +73,7 @@ function RootLayoutNav() {
       headerTitleAlign: "center",
       headerPressColor: "rgba(0, 0, 0, .32)",
       headerRight: () => (
-        <Link href="/modal" asChild>
+        <Link href="/notifications" asChild>
           <Pressable>
             {({ pressed }) => (
               <FontAwesome
@@ -88,25 +89,46 @@ function RootLayoutNav() {
       >
 
 <Drawer.Screen
-          name="lessStock" // This is the name of the page and must match the url from root
+          name="index" // This is the name of the page and must match the url from root
           options={{
-            drawerLabel: 'lessStock',
-            title: 'overview',
+            drawerLabel: 'Inventory',
+            title: 'Ayush Inventory',
           }}
         />
 
-       
-<Stack>
-        <Stack.Screen name="(tabs)" options={{
-          headerShown: false }} />
-        <Stack.Screen
-          name="modal"
+
+        <Drawer.Screen
+        name="contacts"
+        options={{
+          drawerLabel: 'Contacts',
+          title: 'Contacts',
+        }}
+      />
+
+
+<Drawer.Screen
+          name="lessStock"
           options={{
-            title: "Modal",
-            presentation: "modal",
+            drawerLabel: 'Minimal Stock',
+            title: 'Minimal Stock',
           }}
         />
-      </Stack>
+
+<Drawer.Screen
+          name="notifications"
+          options={{
+            drawerLabel: 'Notifications',
+            title: 'Notifications',
+            drawerItemStyle: { display: "none" },
+          }}
+        />
+
+<Drawer.Screen
+          name="+not-found"
+          options={{
+            drawerItemStyle: { display: "none" }
+          }}
+        />
 
 
       </Drawer>
