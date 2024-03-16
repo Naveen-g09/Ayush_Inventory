@@ -122,7 +122,6 @@ const CallScreen = () => {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.title}>Call Screen</Text>
       <FlatList
         data={contacts}
         renderItem={renderItem}
