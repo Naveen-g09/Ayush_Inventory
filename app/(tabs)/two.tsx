@@ -22,16 +22,6 @@ const CallScreen = () => {
           setContacts(JSON.parse(storedContacts));
         } else {
           setContacts([
-            { name: 'Mankal', phoneNumber: '7021865475' },
-            { name: 'Dr Mayank (Vaidyratnam)', phoneNumber: '8108577645' },
-            { name: 'Rahul (Vaidyratnam)', phoneNumber: '9619691948' },
-            { name: 'Vikas (Diabamass)', phoneNumber: '9509141510' },
-            { name: 'Ashok (Upadhyay)', phoneNumber: '9892201884' },
-            { name: 'Adinath Patil (Panchakarma)', phoneNumber: '7977082126' },
-            { name: 'Sattapa Patil (Pathalogist)', phoneNumber: '9967064548' },
-            { name: 'Dr Mahesh Pandey', phoneNumber: '9820006082' },
-            { name: 'Arun Pandey', phoneNumber: '9820488824' },
-            { name: 'Kamlakant', phoneNumber: '9819487935' },
             { name: 'Naveen', phoneNumber: '7208208480' },
           ]);
         }
