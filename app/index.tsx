@@ -91,12 +91,11 @@ const TabOneScreen = () => {
           .select('*')
         // You might want to set the data to state here
         console.log("test_inventory", test_inventory)
-        console.log("data", data)
       } catch (error) {
         console.error("Error loading data:", error);
       }
     };
-  
+
     supabaseData();
   }, []);
 
@@ -156,7 +155,7 @@ const TabOneScreen = () => {
           <Text style={styles.addButton}>+</Text>
         </TouchableOpacity>
       </View>
-      //TODO: Extract this to a component which will add a new item to supabase database
+      {/* TODO: Extract this to a component which will add a new item to supabase database */}
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
