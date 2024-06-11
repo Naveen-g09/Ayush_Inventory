@@ -9,6 +9,8 @@ import {
   TextInput,
   Alert,
 } from "react-native";
+import { supabase } from "@/utils/supabase";
+
 
 interface Item {
   name: string;
@@ -81,6 +83,24 @@ const TabOneScreen = () => {
   const [data, setData] = useState<Item[]>([]);
   const [newItem, setNewItem] = useState<Item>(initialNewItem);
 
+  useEffect(() => {
+    const supabaseData = async () => {
+      try {
+        let { data: test_inventory, error } = await supabase
+          .from('test_inventory')
+          .select('*')
+        // You might want to set the data to state here
+        console.log("test_inventory", test_inventory)
+        console.log("data", data)
+      } catch (error) {
+        console.error("Error loading data:", error);
+      }
+    };
+  
+    supabaseData();
+  }, []);
+
+
   // Load data from AsyncStorage on component mount
   useEffect(() => {
     const fetchData = async () => {
@@ -136,6 +156,7 @@ const TabOneScreen = () => {
           <Text style={styles.addButton}>+</Text>
         </TouchableOpacity>
       </View>
+      //TODO: Extract this to a component which will add a new item to supabase database
       <View style={styles.inputContainer}>
         <TextInput
           style={styles.input}
