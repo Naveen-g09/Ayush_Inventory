@@ -8,7 +8,12 @@
     "ios": "expo start --ios",
     "web": "expo start --web",
     "test": "jest --watchAll",
-    "lint": "eslint ."
+    "format": "prettier . --write",
+    "format-check": "prettier --check \"**/*.{ts,tsx}\"",
+    "type-check": "tsc --pretty --noEmit",
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "pre-commit": "yarn type-check && yarn format && yarn lint:fix && yarn lint && yarn format-check"
   },
   "jest": {
     "preset": "jest-expo"
@@ -21,7 +26,7 @@
     "@react-navigation/native": "^6.0.2",
     "@supabase/supabase-js": "^2.43.4",
     "expo": "^51.0.12",
-    "expo-dev-client": "~4.0.16",
+    "expo-dev-client": "~4.0.18",
     "expo-font": "~12.0.7",
     "expo-linking": "~6.3.1",
     "expo-notifications": "~0.28.8",
@@ -29,7 +34,7 @@
     "expo-splash-screen": "~0.27.5",
     "expo-status-bar": "~1.12.1",
     "expo-system-ui": "~3.0.6",
-    "expo-updates": "~0.25.16",
+    "expo-updates": "~0.25.17",
     "expo-web-browser": "~13.0.3",
     "metro": "~0.80.8",
     "metro-config": "~0.80.8",

@@ -9,8 +9,8 @@ import {
   TextInput,
   Alert,
 } from "react-native";
-import { supabase } from "@/utils/supabase";
 
+import { supabase } from "@/utils/supabase";
 
 interface Item {
   name: string;
@@ -86,11 +86,11 @@ const TabOneScreen = () => {
   useEffect(() => {
     const supabaseData = async () => {
       try {
-        let { data: test_inventory, error } = await supabase
-          .from('test_inventory')
-          .select('*')
+        const { data: test_inventory, error } = await supabase
+          .from("test_inventory")
+          .select("*");
         // You might want to set the data to state here
-        console.log("test_inventory", test_inventory)
+        console.log("test_inventory", test_inventory);
       } catch (error) {
         console.error("Error loading data:", error);
       }
@@ -98,7 +98,6 @@ const TabOneScreen = () => {
 
     supabaseData();
   }, []);
-
 
   // Load data from AsyncStorage on component mount
   useEffect(() => {

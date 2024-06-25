@@ -5,31 +5,32 @@ Ayush Inventory is a mobile application built with Expo, React Native, and Tailw
 ## Features
 
 - **Notification Alerts:** Get notified when medicine stock levels are below the defined threshold, ensuring timely replenishment.
-  
 - **Medicine Inventory Management:** Keep track of all medicines in your inventory with detailed information including name, quantity, expiry date, and supplier details.
-  
 - **Add, Update, Delete Medicines:** Easily add new medicines to the inventory, update existing ones with accurate information, or remove outdated entries.
-  
 - **Contact Medicine Supplier:** Seamlessly contact medicine suppliers directly from the app for efficient communication regarding orders or inquiries.
 
 ## Installation
 
-1. Clone the repository: 
+1. Clone the repository:
+
    ```bash
    git clone https://github.com/your-username/ayush-inventory.git
    ```
 
 2. Navigate to the project directory:
+
    ```bash
    cd ayush-inventory
    ```
 
 3. Install dependencies:
+
    ```bash
    npm install
    ```
 
 4. Start the Expo server:
+
    ```bash
    npm start
    ```
@@ -53,9 +54,7 @@ Ayush Inventory is a mobile application built with Expo, React Native, and Tailw
 ## Technologies Used
 
 - **Expo:** A framework and platform for universal React applications.
-  
 - **React Native:** A JavaScript framework for building native mobile applications using React.
-  
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
 
 ## Contributing

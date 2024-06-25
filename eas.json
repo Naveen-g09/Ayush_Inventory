@@ -6,6 +6,15 @@
     "production": {}
   },
   "build": {
+    "development": {
+      "ios": {
+        "image": "latest"
+      },
+      "developmentClient": true,
+      "distribution": "internal",
+      "channel": "preview",
+      "credentialsSource": "remote"
+    },
     "preview": {
       "android": {
         "buildType": "apk"
