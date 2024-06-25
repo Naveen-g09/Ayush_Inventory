@@ -25,6 +25,8 @@ const CallScreen = () => {
     phoneNumber: "",
   });
 
+  //TODO: Load contacts from database supabase
+
   useEffect(() => {
     const fetchData = async () => {
       try {

@@ -1,13 +1,11 @@
 import FontAwesome from "@expo/vector-icons/FontAwesome";
-import { DefaultTheme, ThemeProvider } from "@react-navigation/native";
 import { useFonts } from "expo-font";
-import { Link, Stack, Tabs } from "expo-router";
+import { Link } from "expo-router";
 import { Drawer } from "expo-router/drawer";
 import * as SplashScreen from "expo-splash-screen";
 import React, { useEffect } from "react";
 import { Pressable } from "react-native";
 import { GestureHandlerRootView } from "react-native-gesture-handler";
-
 
 export {
   // Catch any errors thrown by the Layout component.
@@ -47,9 +45,7 @@ export default function RootLayout() {
 }
 
 function RootLayoutNav() {
-
   return (
-
     <GestureHandlerRootView style={{ flex: 1 }}>
       <Drawer
         screenOptions={{
@@ -123,6 +119,5 @@ function RootLayoutNav() {
         />
       </Drawer>
     </GestureHandlerRootView>
-
   );
 }
