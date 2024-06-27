@@ -1,7 +1,7 @@
-import React, { useEffect, useState } from "react";
-import { View, Text, StyleSheet, ScrollView } from "react-native";
+import React, { useEffect, useState, useCallback } from "react";
+import { View, Text, StyleSheet, FlatList, RefreshControl } from "react-native";
 
-import { fetchData } from "@/utils/helpers/data"; // Adjust the import path as necessary
+import { fetchData } from "@/utils/helpers/data";
 
 interface Product {
   company_name: string;
@@ -11,34 +11,49 @@ interface Product {
 
 const ProductListScreen = () => {
   const [products, setProducts] = useState<Product[]>([]);
+  const [refreshing, setRefreshing] = useState(false);
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      const data = await fetchData("test_inventory"); // Replace 'your_table_name' with the actual table name
-      if (data) {
-        setProducts(data);
-      }
-    };
-
-    loadProducts();
+  const loadProducts = useCallback(async () => {
+    setRefreshing(true);
+    const data = await fetchData("test_inventory");
+    if (data) {
+      setProducts(data);
+    }
+    setRefreshing(false);
   }, []);
 
+  useEffect(() => {
+    loadProducts();
+    const interval = setInterval(() => {
+      loadProducts();
+    }, 300000); // Refresh every 5 minutes
+
+    return () => clearInterval(interval);
+  }, [loadProducts]);
+
+  const renderItem = ({ item }: { item: Product }) => (
+    <View style={styles.productContainer}>
+      <Text style={styles.text}>{item.product_name}</Text>
+      <Text style={styles.text}>{item.company_name}</Text>
+      <Text style={styles.text}>{item.product_quantity}</Text>
+    </View>
+  );
+
   return (
-    <ScrollView style={styles.container}>
-      {products.map((product, index) => (
-        <View key={index} style={styles.productContainer}>
-          <Text style={styles.text}>Company: {product.company_name}</Text>
-          <Text style={styles.text}>Product: {product.product_name}</Text>
-          <Text style={styles.text}>Quantity: {product.product_quantity}</Text>
-        </View>
-      ))}
-    </ScrollView>
+    <FlatList
+      data={products}
+      renderItem={renderItem}
+      keyExtractor={(item, index) => index.toString()}
+      refreshControl={
+        <RefreshControl refreshing={refreshing} onRefresh={loadProducts} />
+      }
+      contentContainerStyle={styles.container}
+    />
   );
 };
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     padding: 10,
   },
   productContainer: {

@@ -1,36 +1,20 @@
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import React, { useState, useEffect } from "react";
 import {
-  ScrollView,
   View,
-  Text,
   StyleSheet,
-  TouchableOpacity,
-  TextInput,
-  Alert,
 } from "react-native";
 
 import DataEntryComponent from "@/utils/components/dataEntry";
 import ProductListScreen from "@/utils/components/displayData";
 
-interface Item {
-  name: string;
-  quantity: number;
-  type: string;
-  count: number;
-}
-
-const initialNewItem: Item = { name: "", quantity: 0, type: "", count: 0 };
-
 const TabOneScreen = () => {
-
-  return (<>
-  <ScrollView contentContainerStyle={styles.container}>
-    <ProductListScreen />
-  </ScrollView>
-  <DataEntryComponent />
-  </>
-
+  return (
+    <>
+      <View style={styles.container}>
+        <ProductListScreen />
+      </View>
+      <DataEntryComponent />
+    </>
   );
 };
 
