@@ -1,6 +1,7 @@
-import { supabase } from "@/utils/supabase";
 import React, { useEffect, useState } from "react";
 import { View, Text, StyleSheet, FlatList } from "react-native";
+
+import { supabase } from "@/utils/supabase";
 
 type Item = {
   id?: string;
@@ -32,12 +33,16 @@ const LessStock = () => {
     supabaseData();
   }, []);
 
-  const renderItem = ({ item }:any) => (
+  const renderItem = ({ item }: any) => (
     <View style={styles.itemContainer}>
       <Text style={styles.serialText}>Serial: {item.id}</Text>
-      <Text style={styles.productNameText}>Product Name: {item.product_name}</Text>
+      <Text style={styles.productNameText}>
+        Product Name: {item.product_name}
+      </Text>
       <Text style={styles.quantityText}>Quantity: {item.product_quantity}</Text>
-      <Text style={styles.companyNameText}>Company Name: {item.company_name}</Text>
+      <Text style={styles.companyNameText}>
+        Company Name: {item.company_name}
+      </Text>
     </View>
   );
 
@@ -56,7 +61,7 @@ const styles = StyleSheet.create({
     padding: 10,
   },
   itemContainer: {
-    backgroundColor: '#f9f9f9',
+    backgroundColor: "#f9f9f9",
     padding: 20,
     marginVertical: 8,
     borderRadius: 5,
@@ -71,21 +76,21 @@ const styles = StyleSheet.create({
   },
   serialText: {
     fontSize: 16,
-    fontWeight: 'bold',
+    fontWeight: "bold",
     marginBottom: 5,
   },
   productNameText: {
     fontSize: 18,
-    fontWeight: 'bold',
-    color: '#333',
+    fontWeight: "bold",
+    color: "#333",
   },
   quantityText: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
   },
   companyNameText: {
     fontSize: 16,
-    color: '#666',
+    color: "#666",
   },
 });
 
