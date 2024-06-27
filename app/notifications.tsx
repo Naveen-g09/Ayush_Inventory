@@ -1,10 +1,12 @@
 import React from "react";
 import { View, Text } from "react-native";
 
+import DataEntryComponent from "@/utils/components/dataEntry";
+
 const modal = () => {
   return (
-    <View>
-      <Text>modal</Text>
+    <View style={{ flex: 1 }}>
+      <DataEntryComponent />
     </View>
   );
 };
