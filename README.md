@@ -56,10 +56,7 @@ Ayush Inventory is a mobile application built with Expo, React Native, and Tailw
 - **Expo:** A framework and platform for universal React applications.
 - **React Native:** A JavaScript framework for building native mobile applications using React.
 - **Tailwind CSS:** A utility-first CSS framework for rapidly building custom designs.
-
-## Contributing
-
-Contributions are welcome! If you'd like to contribute to this project, please fork the repository and submit a pull request with your changes.
+- **Supabase** A Backend as a service opesource framework alternative to Firebase, Along with Postgres Database
 
 ## License
 
