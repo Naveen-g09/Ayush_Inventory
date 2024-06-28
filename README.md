@@ -26,13 +26,13 @@ Ayush Inventory is a mobile application built with Expo, React Native, and Tailw
 3. Install dependencies:
 
    ```bash
-   npm install
+   yarn install
    ```
 
 4. Start the Expo server:
 
    ```bash
-   npm start
+   yarn start
    ```
 
 5. Scan the QR code with the Expo Go app on your mobile device to run the app.
